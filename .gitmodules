@@ -1,0 +1,3 @@
+[submodule "vendor/ceedling"]
+	path = vendor/ceedling
+	url = https://evolentini@bitbucket.org/labmicro/vendor.ceedling.git

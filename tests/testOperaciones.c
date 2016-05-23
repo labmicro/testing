@@ -41,8 +41,9 @@
  ** @{ */
 
 /* === Inclusiones de cabeceras ================================================================ */
-#include "promedio.h"
+#include "unity.h"
 #include "suma.h"
+#include "promedio.h"
 
 /* === Definicion y Macros ===================================================================== */
 
@@ -55,20 +56,12 @@
 /* === Definiciones de funciones internas =====================================================- */
 
 /* === Definiciones de funciones externas ====================================================== */
-
-int promediar(const int valores[], int cantidad, int * promedio) {
+void test_promedio_normal(void) {
+   int datos[] = {1,2,3,4,5};
    int resultado;
-   int indice;
-   int acumulado = 0;
 
-   for (indice = 0; indice < cantidad; indice++) {
-      resultado = acumular(&acumulado, valores[indice]);
-      if (resultado != 0) break;
-   }
-   if (resultado == 0) {
-      *promedio = (acumulado / cantidad);
-   }
-   return resultado;
+   TEST_ASSERT_EQUAL(0, promediar(datos, 5, &resultado));
+   TEST_ASSERT_EQUAL(3, resultado);
 }
 
 /* === Ciere de documentacion ================================================================== */

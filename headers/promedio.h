@@ -32,6 +32,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef PROMEDIO_H
+#define PROMEDIO_H
+
 /** \brief Breve descripción del archivo
  **
  ** Descripción completa del archivo
@@ -40,40 +43,39 @@
  ** \brief Breve descripción del conjunto de archivos
  ** @{ */
 
-/* === Inclusiones de cabeceras ================================================================ */
-#include "suma.h"
+/* === Inclusiones de archivos externos ======================================================== */
+
+/* === Cabecera C++ ============================================================================ */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* === Definicion y Macros ===================================================================== */
+ 
+/* == Declaraciones de tipos de datos ========================================================== */
+ 
+/* === Declaraciones de variables externas ===================================================== */
 
-/* === Declaraciones de tipos de datos internos ================================================ */
+/* === Declaraciones de funciones externas ===================================================== */
 
-/* === Declaraciones de funciones internas ===================================================== */
-
-/* === Definiciones de variables externas ====================================================== */
-
-/* === Definiciones de funciones internas =====================================================- */
-
-/* === Definiciones de funciones externas ====================================================== */
-
-int acumular(int * acumulado, int operando) {
-   int resultado;
-   int suma;
-
-   suma = *acumulado + operando;
-   
-   if ((*acumulado > 0) && (operando > 0) && (suma < 0)) {
-      *acumulado = 0x7FFFFFFF;
-      resultado = 1;
-   } else if ((*acumulado < 0) && (operando < 0) && (suma > 0)) {
-      *acumulado = 0x80000000;
-      resultado = -1;
-   } else {
-      *acumulado = suma;
-      resultado = 0;
-   }
-   return resultado;
-}
+/*!
+ * \brief Realiza el promedio de una tabla de valores
+ * La funcion recibe un vector con enteros y la cantidad de elementos y realiza el promedio de
+ * la tabla.
+ * \param[in] 		valores		Vector con los valores que se desean promediar
+ * \param[in]		cantidad	Cantidad de valores en el vector a promediar
+ * \param[out]		promedio	Valor promedio de los elementos del vector
+ * \return 						Resultado de la operación de promedio
+ * 		\li 	<tt>  0 <\tt>	El promedio se realizó sin errores
+ * 		\li 	<tt> -1 <\tt>	No se pudo calcular el valor promedio por un desboramiento
+ */
+int promediar(const int valores[], int cantidad, int * promedio);
 
 /* === Ciere de documentacion ================================================================== */
+#ifdef __cplusplus
+}
+#endif
 
 /** @} Final de la definición del modulo para doxygen */
+
+#endif   /* PROMEDIO_H */

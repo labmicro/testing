@@ -41,7 +41,9 @@
  ** @{ */
 
 /* === Inclusiones de cabeceras ================================================================ */
-#include "suma.h"
+#include "unity.h"
+#include "Mocksuma.h"
+#include "promedio.h"
 
 /* === Definicion y Macros ===================================================================== */
 
@@ -54,24 +56,19 @@
 /* === Definiciones de funciones internas =====================================================- */
 
 /* === Definiciones de funciones externas ====================================================== */
-
-int acumular(int * acumulado, int operando) {
+void test_promedio_normal(void) {
+   int datos[] = {1, 2, 3};
+   int parciales[] = {0, 1, 3, 6};
    int resultado;
-   int suma;
 
-   suma = *acumulado + operando;
-   
-   if ((*acumulado > 0) && (operando > 0) && (suma < 0)) {
-      *acumulado = 0x7FFFFFFF;
-      resultado = 1;
-   } else if ((*acumulado < 0) && (operando < 0) && (suma > 0)) {
-      *acumulado = 0x80000000;
-      resultado = -1;
-   } else {
-      *acumulado = suma;
-      resultado = 0;
-   }
-   return resultado;
+   acumular_ExpectAndReturn(&parciales[0], 1, 0);
+   acumular_ReturnThruPtr_acumulado(&parciales[1]);
+   acumular_ExpectAndReturn(&parciales[1], 2, 0);
+   acumular_ReturnThruPtr_acumulado(&parciales[2]);
+   acumular_ExpectAndReturn(&parciales[2], 3, 0);
+   acumular_ReturnThruPtr_acumulado(&parciales[3]);
+   TEST_ASSERT_EQUAL(0, promediar(datos, 3, &resultado));
+   TEST_ASSERT_EQUAL(2, resultado);
 }
 
 /* === Ciere de documentacion ================================================================== */

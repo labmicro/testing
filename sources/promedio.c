@@ -41,6 +41,7 @@
  ** @{ */
 
 /* === Inclusiones de cabeceras ================================================================ */
+#include "promedio.h"
 #include "suma.h"
 
 /* === Definicion y Macros ===================================================================== */
@@ -55,21 +56,17 @@
 
 /* === Definiciones de funciones externas ====================================================== */
 
-int acumular(int * acumulado, int operando) {
+int promediar(const int valores[], int cantidad, int * promedio) {
    int resultado;
-   int suma;
+   int indice;
+   int acumulado;
 
-   suma = *acumulado + operando;
-   
-   if ((*acumulado > 0) && (operando > 0) && (suma < 0)) {
-      *acumulado = 0x7FFFFFFF;
-      resultado = 1;
-   } else if ((*acumulado < 0) && (operando < 0) && (suma > 0)) {
-      *acumulado = 0x80000000;
-      resultado = -1;
-   } else {
-      *acumulado = suma;
-      resultado = 0;
+   for (indice = 0; indice < cantidad; indice++) {
+      resultado = acumular(&acumulado, valores[indice]);
+      if (resultado != 0) break;
+   }
+   if (resultado == 0) {
+      *promedio = (acumulado / cantidad);
    }
    return resultado;
 }
